@@ -18,8 +18,6 @@ A full stack application to store / list place you have travelled
 * Comments - Text
 * Rating - Number 1 to 10
 * Image - Text - URL
-* Start date - DateTime
-* End date - DateTime
 * Latitude - Number
 * Longitude - Number
 * Created At - DateTime

@@ -12,7 +12,7 @@ A full stack application to store / list place you have travelled
 * [ ] Setup Mongoose<br />
 * [ ] POST /logs<br />
 
-## Log Entry, databse layout
+## Log Entry, database layout
 * Title (e.g. Trip 2020) - Text
 * Description - Text
 * Comments - Text

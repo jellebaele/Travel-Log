@@ -9,8 +9,15 @@ A full stack application to store / list place you have travelled
     * [x] Setup not found and error middlewares 
 * [x] Model DB<br />
     * What data will we store?
-* [x] Setup Mongoose<br />
-* [ ] POST /logs<br />
+* [x] Setup Mongoose Model(s)<br />
+* [x] POST /logs<br />
+    * Create a new log entry
+* [x] GET / logs
+    * Get all log entries
+* [ ] Setup client
+* [ ] Create form to add new entry
+* [ ] Setup Map SDK on client
+* [ ] List all log entries on map
 
 ## Log Entry, database layout
 * Title (e.g. Trip 2020) - Text

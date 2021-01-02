@@ -7,15 +7,27 @@ const morgan = require('morgan');
 const helmet = require('helmet')
 // Add cross origin resource header to acces from other locations
 const cors = require('cors');
+// Add mongoose
+const mongoose = require('mongoose');
+// To store variables in 'proces.env.VARIABLE': npm install dotenv
+// When done, create a file called '.env' and declare the preferred values.
+require('dotenv').config();
 
 const middlewares = require('./middlewares')
 
+
 const app = express();
+
+// Connect database
+mongoose.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true
+});
+
 app.use(morgan('common'));
 app.use(helmet());
 // Allow only requests from a specific site
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: process.env.CORS_ORIGIN,
 }));
 
 app.get('/', (req, res) => {

@@ -1,6 +1,8 @@
 const mongoose = require ('moongoose');
 const { Schema } = mongoose;
 
+'https://mongoosejs.com/docs/guide.html'
+
 const requiredNumber = {
     type: Integer,
     required: true
@@ -21,16 +23,29 @@ const logEntrySchema = new Schema({
         default: 0
     },
     image: String,
-    latitude: requiredNumber,
-    longitude: requiredNumber,
+    latitude: {
+        ...requiredNumber,
+        min: -90,
+        max: 90
+    },
+    longitude: {
+        ...requiredNumber,
+        min: -180,
+        max: 180,
+    },
     visitDate: { 
         type: Date, 
         default: Date.now,
         required: true
-    },},
-    {timestamps: true, 
+    },
+},
+    { timestamps: true, 
 });
 
+// To use our schema definition, we need to convert our blogSchema into a Model we can work with. 
+// To do so, we pass it into mongoose.model(modelName, schema):
+const logEntry = mongoose.model('LogEntry', logEntrySchema);
+
 module.exports = {
-    logEntrySchema,
+    logEntry,
 }

@@ -6,6 +6,7 @@ import { listLogEntries } from './API';
 
 const App = () => {
   const [logEntries, setLogEntries] = useState([]);
+  const [showPopup, setShowPopup] = useState({});
   const [viewport, setViewport] = useState({
     width: '100vw',
     height: '100vh',
@@ -35,25 +36,44 @@ const App = () => {
     >
       {
         logEntries.map(entry => (
-          <Marker 
-            key={entry._id}
-            latitude={entry.latitude} 
-            longitude={entry.longitude} 
-          >
-            <img className="marker" src="http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-Pic.png" alt=""></img>
-        </Marker>
+          <>
+            <Marker 
+              key={entry._id}
+              latitude={entry.latitude} 
+              longitude={entry.longitude} 
+            > 
+            <div
+              onClick = {() => setShowPopup({
+                // Show all popups
+                // ...showPopup
+                [entry._id]: true
+              })}
+            >
+              <img className="marker" src="http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-Pic.png" alt=""></img>
+            </div>
+            </Marker>
+          
+            {
+              showPopup[entry._id] ? (
+              <Popup
+                latitude={entry.latitude} 
+                longitude={entry.longitude}
+                closeButton={true}
+                closeOnClick={false}
+                onClose={() => setShowPopup({})}
+                dynamicPosition={true}
+                anchor="top" >
+                <div className="popup">
+                  <h3>{entry.title}</h3>
+                  <p>{entry.comments}</p>
+                  <i><small>Visited on {new Date(entry.visitDate).toLocaleDateString()}</small></i>
+                </div>
+              </Popup>
+              ) : null
+            }
+        </>
         ))
       }
-
-      <Popup
-        latitude={37.78}
-        longitude={-122.41}
-        closeButton={true}
-        closeOnClick={false}
-        onClose={() => this.setState({showPopup: false})}
-        anchor="top" >
-        <div>You are here</div>
-      </Popup>
     </ReactMapGL>
   );
 }

@@ -13,15 +13,11 @@ const mongoose = require('mongoose');
 // When done, create a file called '.env' and declare the preferred values.
 require('dotenv').config();
 
-const middlewares = require('./middlewares')
 
+const middlewares = require('./middlewares')
+const logs = require('./api/logs')
 
 const app = express();
-
-// Connect database
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true
-});
 
 app.use(morgan('common'));
 app.use(helmet());
@@ -29,12 +25,27 @@ app.use(helmet());
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
 }));
+// Body parsing middlewares, this will parse json posts from a client
+app.use(express.json());
 
+// Connect database
+mongoose.connect(
+    process.env.DATABASE_URL,
+    {
+        useUnifiedTopology: true, 
+        useNewUrlParser: true
+    },
+    () => console.log('Connected to db')
+)
+
+// Routes
 app.get('/', (req, res) => {
     res.json({
         message: 'Hello world'
     });
 });
+
+app.use('/api/logs', logs); 
 
 app.use(middlewares.notFound)
 app.use(middlewares.errorHandler)

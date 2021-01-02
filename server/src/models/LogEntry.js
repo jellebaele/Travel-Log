@@ -1,10 +1,10 @@
-const mongoose = require ('moongoose');
+const mongoose = require ('mongoose');
 const { Schema } = mongoose;
 
-'https://mongoosejs.com/docs/guide.html'
+//'https://mongoosejs.com/docs/guide.html'
 
 const requiredNumber = {
-    type: Integer,
+    type: Number,
     required: true
 };
 
@@ -46,6 +46,4 @@ const logEntrySchema = new Schema({
 // To do so, we pass it into mongoose.model(modelName, schema):
 const logEntry = mongoose.model('LogEntry', logEntrySchema);
 
-module.exports = {
-    logEntry,
-}
+module.exports = logEntry;
